@@ -1,20 +1,54 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons';
+import AddExerciseScreen from './screens/AddExerciseScreen';
+import ExerciseHistoryScreen from './screens/ExerciseHistoryScreen';
+import SettingsScreen from './screens/SettingsScreen';
 
-export default function App() {
+
+const Tab = createBottomTabNavigator();
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Tab.Navigator
+        tabBarOptions={{
+          activeTintColor: 'tomato',
+          inactiveTintColor: 'gray',
+        }}
+      >
+        <Tab.Screen
+          name="Exercise"
+          component={ExerciseHistoryScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="ios-fitness" size={size} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="AddExercise"
+          component={AddExerciseScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="ios-add-circle" size={size} color={color} />
+            ),
+            tabBarLabel: 'Add Exercise',
+          }}
+        />
+        <Tab.Screen
+          name="Settings"
+          component={SettingsScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="ios-settings" size={size} color={color} />
+            ),
+          }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
